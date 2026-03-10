@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PawStay — Check Availability &amp; Book</title>
+    <meta name="description"
+        content="View real-time availability for PawStay sitters. Pick a date, calculate your price, and confirm your pet care booking in seconds." />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <!-- ── HOLIDAY BANNER ──────────────────────────── -->
+    <div class="holiday-banner" role="banner" aria-label="Holiday pricing notice">
+        🎄 Holiday rates apply: <strong>Dec 24, 25, 31 &amp; Jan 1</strong> — +25% surcharge automatically applied
+    </div>
+
+    <!-- ── NAVBAR ──────────────────────────────────── -->
+    <header>
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="container navbar__inner">
+                <a href="sitters.html" class="navbar__logo" aria-label="PawStay home">
+                    <span class="logo-icon" aria-hidden="true">🐾</span>
+                    PawStay
+                </a>
+
+                <ul class="navbar__links" role="list">
+                    <li><a href="sitters.html">Find Sitters</a></li>
+                    <li><a href="Availability.html" class="active" aria-current="page">Check Availability</a></li>
+                    <li><a href="sitters.html#how-it-works">How It Works</a></li>
+                    <li><a href="sitters.html#pricing">Pricing</a></li>
+                    <li><a href="#my-bookings">My Bookings <span id="bookingsCount"
+                                class="nav-booking-badge">0</span></a></li>
+                </ul>
+
+                <a href="sitters.html" class="btn btn-primary navbar__cta" aria-label="Browse pet sitters">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Browse Sitters
+                </a>
+
+                <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            <!-- Mobile menu -->
+            <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+                <a href="sitters.html">Find Sitters</a>
+                <a href="Availability.html">Check Availability</a>
+                <a href="sitters.html#how-it-works">How It Works</a>
+                <a href="sitters.html#pricing">Pricing</a>
+                <a href="#my-bookings">My Bookings</a>
+                <a href="sitters.html" class="btn btn-primary" style="text-align:center">Browse Sitters</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ── AVAIL HERO ─────────────────────────────── -->
+        <section class="avail-hero" aria-labelledby="availHeading">
+            <div class="container">
+                <div class="hero__eyebrow">
+                    <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+                    Real-Time Availability
+                </div>
+                <h1 id="availHeading">Check Availability <span aria-hidden="true">🐾</span> Book Instantly</h1>
+                <p>Pick a sitter, choose a date, and get your total price in seconds — no surprises, ever.</p>
+            </div>
+        </section>
+
+        <!-- ── SITTER SELECTOR TABS ───────────────────── -->
+        <section class="sitter-selector-bar" aria-label="Select a sitter">
+            <div class="container">
+                <div class="sitter-tabs" role="tablist" aria-label="Sitter tabs">
+                    <!-- Rendered inline so tabs are visible before JS runs -->
+                    <button class="sitter-tab" role="tab" data-id="1" aria-selected="false"
+                        aria-label="Select Priya Mehta">
+                        <span class="tab-avatar" style="background:#E07A5F">PM</span>
+                        Priya Mehta
+                    </button>
+                    <button class="sitter-tab" role="tab" data-id="2" aria-selected="false"
+                        aria-label="Select Jake Rivera">
+                        <span class="tab-avatar" style="background:#81B29A">JR</span>
+                        Jake Rivera
+                    </button>
+                    <button class="sitter-tab" role="tab" data-id="3" aria-selected="false"
+                        aria-label="Select Ananya Iyer">
+                        <span class="tab-avatar" style="background:#3D405B">AI</span>
+                        Ananya Iyer
+                    </button>
+                    <button class="sitter-tab" role="tab" data-id="4" aria-selected="false"
+                        aria-label="Select Tom Nguyen">
+                        <span class="tab-avatar" style="background:#d4a845">TN</span>
+                        Tom Nguyen
+                    </button>
+                    <button class="sitter-tab" role="tab" data-id="5" aria-selected="false"
+                        aria-label="Select Sara Okafor">
+                        <span class="tab-avatar" style="background:#A8DADC">SO</span>
+                        Sara Okafor
+                    </button>
+                    <button class="sitter-tab" role="tab" data-id="6" aria-selected="false"
+                        aria-label="Select Liam Foster">
+                        <span class="tab-avatar" style="background:#C77DFF">LF</span>
+                        Liam Foster
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── CALENDAR + SIDEBAR ─────────────────────── -->
+        <section class="container avail-page" aria-label="Availability calendar">
+            <div class="calendar-wrap">
+
+                <!-- Calendar -->
+                <div class="calendar-card" aria-label="Availability calendar">
+                    <div class="calendar-nav">
+                        <button class="cal-nav-btn" id="calPrev" aria-label="Previous month">
+                            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <h2 id="calTitle" aria-live="polite">Loading…</h2>
+                        <button class="cal-nav-btn" id="calNext" aria-label="Next month">
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                    <!-- Weekday headers -->
+                    <div class="calendar-weekdays" aria-hidden="true">
+                        <div class="weekday">Sun</div>
+                        <div class="weekday">Mon</div>
+                        <div class="weekday">Tue</div>
+                        <div class="weekday">Wed</div>
+                        <div class="weekday">Thu</div>
+                        <div class="weekday">Fri</div>
+                        <div class="weekday">Sat</div>
+                    </div>
+
+                    <!-- Day cells injected by app.js -->
+                    <div class="calendar-grid" id="calGrid" role="grid" aria-label="Calendar days"></div>
+
+                    <!-- Legend -->
+                    <div class="calendar-legend" aria-label="Calendar colour guide">
+                        <div class="legend-item">
+                            <span class="legend-dot green" aria-hidden="true"></span>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot yellow" aria-hidden="true"></span>
+                            <span>Limited</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot red" aria-hidden="true"></span>
+                            <span>Fully Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot grey" aria-hidden="true"></span>
+                            <span>Past Date</span>
+                        </div>
+                        <div class="legend-item">
+                            <span style="font-size:.9rem" aria-hidden="true">⭐</span>
+                            <span>Holiday</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <aside class="avail-sidebar" aria-label="Sitter information">
+
+                    <!-- Selected sitter info -->
+                    <div class="sidebar-card">
+                        <h3><i class="fa-solid fa-user" aria-hidden="true"></i> Selected Sitter</h3>
+                        <div class="quick-stat"><span>Name</span><span id="sidebarSitterName">—</span></div>
+                        <div class="quick-stat"><span>Rate</span><span id="sidebarRate">—</span></div>
+                        <div class="quick-stat"><span>Experience</span><span id="sidebarExp">—</span></div>
+                        <div class="quick-stat"><span>Accepts</span><span id="sidebarPets">—</span></div>
+                        <a href="sitters.html" class="btn btn-secondary"
+                            style="width:100%;justify-content:center;margin-top:14px;font-size:.84rem"
+                            aria-label="Change selected sitter">
+                            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> Change Sitter
+                        </a>
+                    </div>
+
+                    <!-- Pricing quick ref -->
+                    <div class="sidebar-card">
+                        <h3><i class="fa-solid fa-tag" aria-hidden="true"></i> Pricing Rules</h3>
+                        <div class="quick-stat">
+                            <span>🎄 Holiday surcharge</span>
+                            <span style="color:var(--primary)">+25%</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span>🐾 2nd+ pet discount</span>
+                            <span style="color:var(--secondary-dk)">-10% each</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span>🎁 Walk+Feed bundle</span>
+                            <span style="color:var(--secondary-dk)">-15%</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span>Max discount</span>
+                            <span style="color:var(--secondary-dk)">-40%</span>
+                        </div>
+                    </div>
+
+                    <!-- Tips card -->
+                    <div class="sidebar-card">
+                        <h3><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Tips</h3>
+                        <ul style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+                            <li
+                                style="font-size:.84rem;color:var(--text-light);display:flex;gap:8px;align-items:flex-start">
+                                <span style="color:var(--secondary)">✓</span>
+                                Green = full availability, yellow = limited — book fast!
+                            </li>
+                            <li
+                                style="font-size:.84rem;color:var(--text-light);display:flex;gap:8px;align-items:flex-start">
+                                <span style="color:var(--secondary)">✓</span>
+                                Bundle Walk + Feed to save 15% on your total.
+                            </li>
+                            <li
+                                style="font-size:.84rem;color:var(--text-light);display:flex;gap:8px;align-items:flex-start">
+                                <span style="color:var(--secondary)">✓</span>
+                                Book multiple pets at once for automatic multi-pet savings.
+                            </li>
+                        </ul>
+                    </div>
+
+                </aside>
+            </div>
+        </section>
+
+        <!-- ── MY BOOKINGS ───────────────────────────────────── -->
+        <section id="my-bookings" style="padding:60px 0;background:#fff;border-top:1px solid var(--border)"
+            aria-labelledby="bookingsHeading">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="bookingsHeading">
+                        <span aria-hidden="true">📋</span> My Confirmed Bookings
+                        <span id="bookingsCount" class="nav-booking-badge" aria-label="booking count">0</span>
+                    </h2>
+                    <p>All your upcoming &amp; past pet care bookings — confirm a date above to see them here.</p>
+                </div>
+                <div class="bookings-grid" id="myBookingsGrid" role="list" aria-label="My bookings list">
+                    <!-- Injected by app.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ── FOOTER ─────────────────────────────────── -->
+    <footer>
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <span aria-hidden="true">🐾</span> PawStay
+            </div>
+            <p class="footer__copy">© 2026 PawStay. All rights reserved. Making pet care easier, one paw at a time.</p>
+            <nav class="footer__links" aria-label="Footer navigation">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+                <a href="#">Become a Sitter</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- ── BOOKING MODAL ──────────────────────────── -->
+    <div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+        <div class="modal">
+            <div class="modal__header">
+                <h2 class="modal__title" id="bookingModalTitle">
+                    <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+                    Confirm Booking
+                </h2>
+                <button class="modal__close" aria-label="Close booking modal">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <!-- Date display -->
+            <div class="modal-date-display" aria-live="polite">
+                <span class="modal-date-icon" aria-hidden="true">📅</span>
+                <div class="modal-date-text">
+                    <strong id="modalDateText">—</strong>
+                    <span id="modalSitterLabel">with —</span>
+                </div>
+            </div>
+
+            <!-- Holiday note -->
+            <div id="holidayNote"
+                style="display:none;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;background:rgba(242,204,143,.25);border:1px solid rgba(242,204,143,.5);margin-bottom:14px;font-size:.84rem;font-weight:600;color:#7a5500">
+                <span aria-hidden="true">🎄</span>
+                Holiday surcharge (+25%) applies on this date.
+            </div>
+
+            <!-- Service type -->
+            <div class="modal__field">
+                <label for="serviceType">Service Type</label>
+                <select id="serviceType" aria-label="Select service type">
+                    <option value="walk">🦮 Dog Walk</option>
+                    <option value="sit">🏠 Pet Sitting</option>
+                    <option value="feed">🍽️ Feeding Only</option>
+                    <option value="bundle">🎁 Walk + Feed Bundle (-15%)</option>
+                </select>
+            </div>
+
+            <!-- Pet count -->
+            <div class="modal__field">
+                <label for="petCount">Number of Pets (1–5)</label>
+                <input type="number" id="petCount" min="1" max="5" value="1" aria-label="Number of pets (1 to 5)"
+                    aria-describedby="petCountHint" />
+                <small id="petCountHint" style="color:var(--text-muted);font-size:.76rem;margin-top:3px;display:block">
+                    Each pet after the first gets -10% discount.
+                </small>
+            </div>
+
+            <!-- Duration -->
+            <div class="modal__field">
+                <label for="durationSelect">Duration</label>
+                <select id="durationSelect" aria-label="Select duration">
+                    <option value="1hr">1 Hour</option>
+                    <option value="2hr">2 Hours</option>
+                    <option value="half">Half Day (4 hrs)</option>
+                    <option value="full">Full Day (8 hrs)</option>
+                </select>
+            </div>
+
+            <!-- Live price calculator -->
+            <div class="modal__field">
+                <label>Price Breakdown</label>
+                <div class="price-box" id="priceBox" aria-live="polite" aria-label="Price breakdown">
+                    <!-- Injected by JS -->
+                </div>
+            </div>
+
+            <div class="modal__actions">
+                <button class="btn btn-secondary" id="bookCancel" aria-label="Cancel booking">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i> Cancel
+                </button>
+                <button class="btn btn-primary" id="bookConfirm" aria-label="Confirm and complete booking">
+                    <i class="fa-solid fa-check" aria-hidden="true"></i> Confirm Booking
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

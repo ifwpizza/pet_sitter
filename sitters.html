@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PawStay — Find Trusted Pet Sitters Near You</title>
+    <meta name="description"
+        content="Connect with verified local pet sitters and dog walkers in your area. Browse profiles, check availability, and book with confidence on PawStay." />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <!-- ── HOLIDAY BANNER ──────────────────────────── -->
+    <div class="holiday-banner" role="banner" aria-label="Holiday pricing notice">
+        🎄 Holiday rates apply: <strong>Dec 24, 25, 31 &amp; Jan 1</strong> — +25% surcharge automatically applied
+    </div>
+
+    <!-- ── NAVBAR ──────────────────────────────────── -->
+    <header>
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="container navbar__inner">
+                <a href="sitters.html" class="navbar__logo" aria-label="PawStay home">
+                    <span class="logo-icon" aria-hidden="true">🐾</span>
+                    PawStay
+                </a>
+
+                <ul class="navbar__links" role="list">
+                    <li><a href="sitters.html" class="active" aria-current="page">Find Sitters</a></li>
+                    <li><a href="Availability.html">Check Availability</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#my-bookings">My Bookings <span id="bookingsCount"
+                                class="nav-booking-badge">0</span></a></li>
+                </ul>
+
+                <a href="Availability.html" class="btn btn-primary navbar__cta" aria-label="Book a pet sitter now">
+                    <i class="fa-solid fa-paw" aria-hidden="true"></i> Book Now
+                </a>
+
+                <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+            <!-- Mobile menu -->
+            <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+                <a href="sitters.html">Find Sitters</a>
+                <a href="Availability.html">Check Availability</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#my-bookings">My Bookings</a>
+                <a href="Availability.html" class="btn btn-primary" style="text-align:center">
+                    <i class="fa-solid fa-paw" aria-hidden="true"></i> Book Now
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- ── HERO ──────────────────────────────────── -->
+        <section class="hero" aria-labelledby="heroHeading">
+            <div class="container">
+                <div class="hero__eyebrow">
+                    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                    Trusted · Verified · Local
+                </div>
+                <h1 id="heroHeading">Find Trusted Pet Sitters 🐾 Near You</h1>
+                <p>Browse verified local sitters and walkers. Real reviews, transparent pricing, and instant booking —
+                    all in one place.</p>
+
+                <div class="hero__stats" aria-label="Platform statistics">
+                    <div class="hero__stat">
+                        <strong>2,400+</strong>
+                        <span>Verified Sitters</span>
+                    </div>
+                    <div class="hero__stat">
+                        <strong>98%</strong>
+                        <span>Happy Pet Parents</span>
+                    </div>
+                    <div class="hero__stat">
+                        <strong>50k+</strong>
+                        <span>Bookings Completed</span>
+                    </div>
+                    <div class="hero__stat">
+                        <strong>4.9★</strong>
+                        <span>Average Rating</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── FILTER BAR ─────────────────────────────── -->
+        <section class="container" aria-label="Search and filter sitters">
+            <div class="filter-bar" role="search">
+                <div class="filter-group">
+                    <label for="locInput"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Location</label>
+                    <input type="text" id="locInput" placeholder="e.g. Austin, TX" aria-label="Enter your location" />
+                </div>
+                <div class="filter-group">
+                    <label for="petFilter"><i class="fa-solid fa-dog" aria-hidden="true"></i> Pet Type</label>
+                    <select id="petFilter" aria-label="Filter by pet type">
+                        <option value="">All Pets</option>
+                        <option value="Dog">🐕 Dog</option>
+                        <option value="Cat">🐈 Cat</option>
+                        <option value="Bird">🐦 Bird</option>
+                        <option value="Rabbit">🐇 Rabbit</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="expFilter"><i class="fa-solid fa-star" aria-hidden="true"></i> Experience</label>
+                    <select id="expFilter" aria-label="Filter by experience level">
+                        <option value="">All Levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Expert">Expert</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="dateFrom"><i class="fa-regular fa-calendar" aria-hidden="true"></i> From</label>
+                    <input type="date" id="dateFrom" aria-label="Start date" />
+                </div>
+                <div class="filter-group">
+                    <label for="dateTo"><i class="fa-regular fa-calendar-days" aria-hidden="true"></i> To</label>
+                    <input type="date" id="dateTo" aria-label="End date" />
+                </div>
+                <button class="btn btn-primary" id="filterBtn" aria-label="Apply filters">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search
+                </button>
+            </div>
+        </section>
+
+        <!-- ── SITTER GRID ────────────────────────────── -->
+        <section class="sitters-section container" aria-labelledby="sittersHeading">
+            <div class="section-header">
+                <h2 id="sittersHeading">
+                    <span class="paw-accent" aria-hidden="true">🐾</span>
+                    Our Verified Sitters
+                    <span class="paw-accent" aria-hidden="true">🐾</span>
+                </h2>
+                <p>All sitters are background-checked, insured, and pet-first-aid certified.</p>
+            </div>
+
+            <div class="sitters-grid" id="sittersGrid" role="list" aria-label="Sitter profiles">
+                <!-- Cards injected by app.js -->
+            </div>
+        </section>
+
+        <!-- ── HOW IT WORKS ───────────────────────────── -->
+        <section id="how-it-works" style="padding:60px 0;background:#fff;border-top:1px solid var(--border)">
+            <div class="container">
+                <div class="section-header">
+                    <h2>How PawStay Works <span aria-hidden="true">🐾</span></h2>
+                    <p>Booking the perfect sitter takes less than 2 minutes.</p>
+                </div>
+                <div
+                    style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-top:8px">
+                    <div
+                        style="text-align:center;padding:28px 20px;border-radius:16px;background:var(--bg);border:1px solid var(--border)">
+                        <div style="font-size:2.5rem;margin-bottom:14px">🔍</div>
+                        <h3 style="font-size:1rem;margin-bottom:8px">1. Search</h3>
+                        <p style="font-size:.88rem;color:var(--text-light)">Filter by location, pet type, experience &
+                            availability.</p>
+                    </div>
+                    <div
+                        style="text-align:center;padding:28px 20px;border-radius:16px;background:var(--bg);border:1px solid var(--border)">
+                        <div style="font-size:2.5rem;margin-bottom:14px">👀</div>
+                        <h3 style="font-size:1rem;margin-bottom:8px">2. Browse Profiles</h3>
+                        <p style="font-size:.88rem;color:var(--text-light)">Read reviews, check services and pricing on
+                            each card.</p>
+                    </div>
+                    <div
+                        style="text-align:center;padding:28px 20px;border-radius:16px;background:var(--bg);border:1px solid var(--border)">
+                        <div style="font-size:2.5rem;margin-bottom:14px">📅</div>
+                        <h3 style="font-size:1rem;margin-bottom:8px">3. Check Dates</h3>
+                        <p style="font-size:.88rem;color:var(--text-light)">Pick an open date on the live availability
+                            calendar.</p>
+                    </div>
+                    <div
+                        style="text-align:center;padding:28px 20px;border-radius:16px;background:var(--bg);border:1px solid var(--border)">
+                        <div style="font-size:2.5rem;margin-bottom:14px">✅</div>
+                        <h3 style="font-size:1rem;margin-bottom:8px">4. Book &amp; Relax</h3>
+                        <p style="font-size:.88rem;color:var(--text-light)">Confirm your booking and let your pet enjoy
+                            great care!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── PRICING INFO ───────────────────────────── -->
+        <section id="pricing" style="padding:60px 0">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Transparent Pricing <span aria-hidden="true">🐾</span></h2>
+                    <p>No hidden fees — what you see is what you pay.</p>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px">
+                    <div
+                        style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+                        <div style="font-size:1.5rem;margin-bottom:10px">🎄</div>
+                        <h3 style="font-size:.95rem;margin-bottom:6px;font-family:var(--font-head)">Holiday Surcharge
+                        </h3>
+                        <p style="font-size:.85rem;color:var(--text-light)">+25% automatically applied on Dec 24, 25, 31
+                            and Jan 1.</p>
+                    </div>
+                    <div
+                        style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+                        <div style="font-size:1.5rem;margin-bottom:10px">🐾</div>
+                        <h3 style="font-size:.95rem;margin-bottom:6px;font-family:var(--font-head)">Multi-Pet Discount
+                        </h3>
+                        <p style="font-size:.85rem;color:var(--text-light)">-10% for each additional pet beyond the
+                            first (up to -40%).</p>
+                    </div>
+                    <div
+                        style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+                        <div style="font-size:1.5rem;margin-bottom:10px">🎁</div>
+                        <h3 style="font-size:.95rem;margin-bottom:6px;font-family:var(--font-head)">Walk + Feed Bundle
+                        </h3>
+                        <p style="font-size:.85rem;color:var(--text-light)">-15% flat discount when you book walking and
+                            feeding together.</p>
+                    </div>
+                    <div
+                        style="background:#fff;border-radius:16px;padding:24px;border:1px solid var(--border);box-shadow:var(--shadow-sm)">
+                        <div style="font-size:1.5rem;margin-bottom:10px">📊</div>
+                        <h3 style="font-size:.95rem;margin-bottom:6px;font-family:var(--font-head)">Smart Stacking</h3>
+                        <p style="font-size:.85rem;color:var(--text-light)">Surcharge applies first, then all discounts
+                            are layered on top.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ── MY BOOKINGS ───────────────────────────────────────── -->
+        <section id="my-bookings"
+            style="padding:60px 0;background:linear-gradient(135deg,#fdf6f0 0%,#f0f7f4 100%);border-top:1px solid var(--border)"
+            aria-labelledby="bookingsHeading">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="bookingsHeading">
+                        <span aria-hidden="true">📋</span> My Confirmed Bookings
+                        <span id="bookingsCount" class="nav-booking-badge" aria-label="booking count">0</span>
+                    </h2>
+                    <p>All your upcoming &amp; past pet care bookings in one place.</p>
+                </div>
+                <div class="bookings-grid" id="myBookingsGrid" role="list" aria-label="My bookings list">
+                    <!-- Injected by app.js -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ── FOOTER ─────────────────────────────────── -->
+    <footer>
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <span aria-hidden="true">🐾</span> PawStay
+            </div>
+            <p class="footer__copy">© 2026 PawStay. All rights reserved. Making pet care easier, one paw at a time.</p>
+            <nav class="footer__links" aria-label="Footer navigation">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+                <a href="#">Become a Sitter</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- ── CONTACT MODAL ──────────────────────────── -->
+    <div class="modal-overlay" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        <div class="modal">
+            <div class="modal__header">
+                <h2 class="modal__title" id="contactModalTitle">
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    Contact <span id="modalSitterName">Sitter</span>
+                </h2>
+                <button class="modal__close" aria-label="Close contact modal">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <form id="contactForm" novalidate>
+                <div class="modal__field">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" placeholder="Jane Smith" required aria-required="true" />
+                </div>
+                <div class="modal__field">
+                    <label for="contactEmail">Email Address</label>
+                    <input type="email" id="contactEmail" placeholder="jane@example.com" required
+                        aria-required="true" />
+                </div>
+                <div class="modal__field">
+                    <label for="contactPet">Your Pet's Name &amp; Type</label>
+                    <input type="text" id="contactPet" placeholder="e.g. Buddy (Golden Retriever)" />
+                </div>
+                <div class="modal__field">
+                    <label for="contactMsg">Message</label>
+                    <textarea id="contactMsg"
+                        placeholder="Tell the sitter about your pet, dates you need help, and any special requirements..."
+                        required aria-required="true"></textarea>
+                </div>
+
+                <div class="modal__actions">
+                    <button type="button" class="btn btn-secondary" id="contactCancel"
+                        aria-label="Cancel and close">Cancel</button>
+                    <button type="submit" class="btn btn-primary" aria-label="Send message to sitter">
+                        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
